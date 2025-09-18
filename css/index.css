@@ -1,36 +1,68 @@
-body {
+/* Reset básico */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0d1117; /* fundo escuro */
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
 }
 
+/* Fundo moderno em azul escuro com gradiente */
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0a192f, #112d4e);
+    color: #f0f4f8;
+}
+
+/* Container central */
 .container {
     text-align: center;
+    padding: 40px 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 1s ease;
 }
 
-h1 {
-    color: #58a6ff; /* azul puxado */
-    margin-bottom: 40px;
-}
-
-.buttons .btn {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 30px;
-    text-decoration: none;
-    color: #0d1117;
-    background-color: #58a6ff;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.buttons .btn:hover {
-    background-color: #1c8cff;
+/* Título */
+.container h1 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
     color: #ffffff;
+    letter-spacing: 1px;
+}
+
+/* Botões */
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }

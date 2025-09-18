@@ -32,8 +32,8 @@ app.get("/consultar-uid", (req, res) => {
             console.log("UID encontrado:", resultado);
             res.json({ status: "sucesso", resultado });
         } else {
-            console.log("UID não encontrado");
-            res.redirect('/cadastrar')
+            console.log("UID não encontrado")
+            return res.status(404).json({ status: "erro", resultado: null })
         }
     })
 })

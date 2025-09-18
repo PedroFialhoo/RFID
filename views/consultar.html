@@ -28,17 +28,27 @@
             try {
                 const res = await fetch(`/consultar-uid?uid=${encodeURIComponent(uid)}`);
                 const data = await res.json();
-                const registro = data.resultado[0]
 
                 if (res.ok && data.status === "sucesso") {
                     const card = document.createElement('div');
+                    const registro = data.resultado[0]
                     card.className = 'card';
                     card.innerHTML = `
                         <h2>${registro.nome}</h2>
                         <p><strong>UID:</strong> ${registro.uid}</p>
                     `;
                     resultado.appendChild(card);
-                } else {
+                } 
+                else if (res.ok && data.status === "erro"){
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h2>Usuário não cadastrado</h2>
+                        <p><strong>UID:</strong> não cadastrado</p>
+                    `;
+                    resultado.appendChild(card);
+                }
+                else {
                     throw new Error(data.mensagem || 'UID não encontrado');
                 }
 
