@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar RFID</title>
+    <link rel="stylesheet" href="../css/consultar.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Consultar RFID</h1>
+        <form id="consultarForm">
+            <input type="text" name="uid" placeholder="Digite o UID" required>
+            <button type="submit">Consultar</button>
+        </form>
+        <div id="resultado" class="resultado"></div>
+        <a href="/" class="back">Voltar</a>
+    </div>
+
+    <script>
+        const form = document.getElementById('consultarForm');
+        const resultado = document.getElementById('resultado');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            resultado.innerHTML = ''; // limpa resultados anteriores
+            const uid = form.uid.value;
+
+            try {
+                const res = await fetch(`/consultar-uid?uid=${encodeURIComponent(uid)}`);
+                const data = await res.json();
+                const registro = data.resultado[0]
+
+                if (res.ok && data.status === "sucesso") {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h2>${registro.nome}</h2>
+                        <p><strong>UID:</strong> ${registro.uid}</p>
+                    `;
+                    resultado.appendChild(card);
+                } else {
+                    throw new Error(data.mensagem || 'UID não encontrado');
+                }
+
+            } catch (err) {
+                resultado.innerHTML = `<p class="erro">${err.message}</p>`;
+            }
+        })
+
+    </script>
+</body>
+</html>
+        

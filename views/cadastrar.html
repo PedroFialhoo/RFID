@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar RFID</title>
+    <link rel="stylesheet" href="../css/cadastrar.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastrar RFID</h1>
+        <form id="cadastrarForm">
+            <input type="text" name="uid" placeholder="UID" required>
+            <input type="text" name="nome" placeholder="Nome" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <a href="/" class="back">Voltar</a>
+    </div>
+
+    <script>
+        const form = document.getElementById('cadastrarForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                uid: form.uid.value,
+                nome: form.nome.value
+            };
+
+            const res = await fetch('/cadastrar', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(data)
+            });
+
+            const text = await res.text();
+            alert(text);
+            form.reset();
+        });
+    </script>
+</body>
+</html>
