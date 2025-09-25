@@ -9,12 +9,31 @@
     <div class="container">
         <h1>Cadastrar RFID</h1>
         <form id="cadastrarForm">
-            <input type="text" name="uid" placeholder="UID" required>
+            <input type="text" name="uid" placeholder="UID" id="uidField" required>
             <input type="text" name="nome" placeholder="Nome" required>
             <button type="submit">Cadastrar</button>
         </form>
         <a href="/" class="back">Voltar</a>
     </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    const socket = io();
+    const uidField = document.getElementById('uidField');
+
+    socket.on('uid-lido', (data) => {
+        uidField.value = data.uid;
+
+        if(data.existe){
+            // UID já cadastrado → ir para consultar
+            window.location.href = `/consultar?uid=${encodeURIComponent(data.uid)}`;
+        } else {
+            // UID não cadastrado → preencher formulário de cadastro
+            uidField.readOnly = true; // impede editar o UID
+            alert(`UID ${data.uid} não cadastrado. Complete o nome e clique em cadastrar.`);
+        }
+    });
+    </script>
 
     <script>
         const form = document.getElementById('cadastrarForm');
